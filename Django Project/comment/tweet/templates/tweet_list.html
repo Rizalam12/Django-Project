@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+django code
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center">  Welcome to Django</h1>
+
+<a class="btn btn-primary mb-4" href="{% url 'tweet_create' %}">Create a Tweet</a>
+
+<div class="container row gap-3">
+    {% for tweet in tweets %}
+    <div class="card" style="width: 18rem;">
+    {% if tweet.photo and tweet.photo.name %}
+    <img src="{{tweet.photo.url}}" class="card-img-top" alt="User {{tweet.user.username}} profile photo in a social media post, set against a simple background, expressing the mood of the tweet" />
+    {% endif %}
+    <div class="card-body">
+    <h5 class="card-title">{{tweet.user.username}}</h5>
+    <p class="card-text">{{tweet.text}}</p>
+       <a href="{% url 'tweet_edit' tweet.id %}" class="btn btn-primary">Edit</a>
+       <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-danger">Delete</a>
+  </div>
+</div>
+
+    {% endfor%}
+
+{% endblock %}
